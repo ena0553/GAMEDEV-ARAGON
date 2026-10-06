@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask ground;
 
+    private Vector3 crouchScale = new Vector3(1, 0.5f, 1);
+    private Vector3 playerScale = new Vector3(1, 1f, 1);
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 8, rb.linearVelocity.z);
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 5, rb.linearVelocity.z);
         }
 
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -28,23 +31,17 @@ public class PlayerMovement : MonoBehaviour
 
         rb.linearVelocity = new Vector3(horizontalInput * 5, rb.linearVelocity.y, verticalInput * 5);
 
-        /*
-        if (Input.GetKey("w")){
-            rb.linearVelocity = new Vector3(-3, 0, 0);
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            transform.localScale = crouchScale;
+            transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
         }
 
-        if (Input.GetKey("s")){
-            rb.linearVelocity = new Vector3(3, 0, 0);
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            transform.localScale = playerScale;
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
         }
-
-        if (Input.GetKey("d")){
-            rb.linearVelocity = new Vector3(0, 0, 3);
-        }
-
-        if (Input.GetKey("a")){
-            rb.linearVelocity = new Vector3(0, 0, -3);
-        }
-        */
     }
     
     bool IsGrounded()
