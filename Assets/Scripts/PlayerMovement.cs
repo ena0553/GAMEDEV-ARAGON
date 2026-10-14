@@ -29,9 +29,10 @@ public class PlayerMovement : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        rb.linearVelocity = new Vector3(horizontalInput * 5, rb.linearVelocity.y, verticalInput * 5);
+        Vector3 move = (transform.right * horizontalInput + transform.forward * verticalInput) * 5f;
+        rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
 
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             transform.localScale = crouchScale;
             transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
