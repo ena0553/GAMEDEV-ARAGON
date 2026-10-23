@@ -37,9 +37,12 @@ public class Laser : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            HealthManagement health = other.GetComponentInParent<HealthManagement>();
-
-            health.TakeDamage(20);
+            PlayerHealth health = other.GetComponentInParent<PlayerHealth>();
+            if(health != null)
+            {
+                health.TakeDamage(20);
+            }
+            
         }
     }
 }
